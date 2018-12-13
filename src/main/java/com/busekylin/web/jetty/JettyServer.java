@@ -4,13 +4,22 @@ import com.busekylin.web.server.WebAction;
 import com.busekylin.web.server.WebServer;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.server.handler.HandlerWrapper;
 
 @Slf4j
 public class JettyServer implements WebServer {
     @Override
     public void start(int port, WebAction action) {
         Server server = new Server(port);
-        server.setHandler(new WebHandler(action));
+
+        HandlerCollection collection = new HandlerCollection();
+        collection.addHandler(new WebHandler(action));
+        HandlerWrapper wrapper = new MultipartConfigInjectionHandler();
+
+        wrapper.setHandler(collection);
+
+        server.setHandler(wrapper);
 
         try {
             server.start();

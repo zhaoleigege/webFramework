@@ -19,6 +19,9 @@ public class WebHandler extends AbstractHandler {
 
     @Override
     public void handle(String target, Request request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
+        httpServletRequest.getParts().forEach(part -> {
+            System.out.println(part.getName() + " " + part.getSize() + " " + part.getContentType());
+        });
         action.action(new JettyRequest(request), new JettyResponse(httpServletResponse));
     }
 }

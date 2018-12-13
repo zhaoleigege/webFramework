@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class WebAction {
     public void action(HttpRequest request, HttpResponse response) {
+        System.out.println(request.getParams());
         System.out.println(request.getContentType());
         String hello = "hello jetty";
 
