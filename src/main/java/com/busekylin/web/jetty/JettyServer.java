@@ -9,6 +9,7 @@ import org.eclipse.jetty.server.handler.HandlerWrapper;
 
 @Slf4j
 public class JettyServer implements WebServer {
+
     @Override
     public void start(int port, WebAction action) {
         Server server = new Server(port);
